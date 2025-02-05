@@ -35,19 +35,66 @@ def text_input():
     print(response.text)
     
 def Settings(): 
-    os.system("clear")
-    print("Settings")
-    print("1. Set API Keys")
-    print("2. Change Model")
-    print("3. Exit")
-    choice = input(">>>")
-    if choice == '1':
+    while True:
         os.system("clear")
-        print("Please Input Your API Key Here >>>")
-        api_key = input(">>>")
-        genai.configure(api_key=api_key)
+        print("Settings Page:\n\n")
+        print("1. Set API Keys")
+        print("2. Change Model")
+        print("3. Exit to Main Page\n")
+        choice = input(">>>")
         
+        
+        if choice == '1':
+            os.system("clear")
+            print("Please Input Your OpenAI API Key Here (Skip if none)")
+            openaiapi_key = str(input(">>>"))
+            #print("Please Input Your Deepseek Key Here (Skip if none)")
+            #deepseekapi_key = input(">>>")
+            print("Please Input Your Gemini API Key Here (Skip if none)")
+            geminiapi_key = str(input(">>>"))
+            #print("Please Input Your Anthropic Key Here (Skip if none)")
+            #anthropicapi_key = input(">>>")
+            
+            dictionary = {
+            #"newfile?" : "",
+            "OpenAI_APIKEY": openaiapi_key,
+            "Gemini_APIKEY": geminiapi_key,
+            #"DeepSeek_APIKEY": "",
+            #"Anthropic_APIKEY": ""
+            "Model": "gemini-1.5-flash"
+            }
+            
+            json_object = json.dumps(dictionary, indent=4)
+            
+            with open("./config/cfg.json", "w") as outfile:
+                outfile.write(json_object)
+        
+                
+        if choice == '2':
+            while True:
+                os.system("clear")
+                #print("Please Input Your Model Here (options: gemini-1.5-flash, chatgpt-4o, deepseek-v3, claude-3.5-haiku)")
+                print("Please Input Your Model Here (options: gemini-1.5-flash, chatgpt-4o)")
+                global model
+                model = str(input(">>>"))
+                
+                #if model != "gemini-1.5-flash" and model != "chatgpt-4o" and model != "deepseek-v3" and model != "claude-3.5-haiku":
+                if model != "gemini-1.5-flash" and model != "chatgpt-4o":
+                    print("Invalid Model. Please Try Again...")
+                    entertocontinue = input("Press Enter to Continue...")
+                    continue
+                else:
+                    pass
+                
 
+                
+                    
+                
+        if choice == '3':
+            break
+            
+        
+    
 
         
         
@@ -58,6 +105,12 @@ def Settings():
 
 
 # Write config if not already written
+folder_exists = str(os.path.isdir("./config"))
+if folder_exists == "True":
+    pass
+if folder_exists == "False":
+    os.makedirs("./config")
+    
 cfg_exists = str(os.path.isfile("./config/cfg.json"))
 if cfg_exists == "True":
     pass
@@ -77,23 +130,16 @@ elif cfg_exists == "False":
     dictionary = {
     #"newfile?" : "",
     "OpenAI_APIKEY": openaiapi_key,
-    "Gemini_APIKEY": geminiapi_key
+    "Gemini_APIKEY": geminiapi_key,
     #"DeepSeek_APIKEY": "",
     #"Anthropic_APIKEY": ""
+    "Model": "gemini-1.5-flash"
     }
     
     json_object = json.dumps(dictionary, indent=4)
     
     with open("./config/cfg.json", "w") as outfile:
         outfile.write(json_object)
-    
-    
-
-
-    
-    
-        
-    
     
 
 
@@ -110,7 +156,8 @@ with open('./config/cfg.json', 'r') as openfile:
 #print(type(json_object))
 openai_api_key = json_object['OpenAI_APIKEY']
 gemini_api_key = json_object['Gemini_APIKEY']
-    
+
+
 # Initialize the Google AI API key
 genai.configure(api_key=gemini_api_key)
 # Intialize the Generative Model
