@@ -11,10 +11,10 @@ Anthropic ❌<br>
 <br><br> 
 
 To-Do List:<br> 
-Adding all supported AI Models<br> ❌
-Adding a Graphical User Interface<br> ❌
-Putting this on a Raspberry Pi and putting it by my desk :)<br> ❌
-Cross-Platform Support (Android, iOS) ❌
+Adding all supported AI Models ❌<br> 
+Adding a Graphical User Interface ❌<br> 
+Putting this on a Raspberry Pi and putting it by my desk :) ❌<br>
+Cross-Platform Support (Android, iOS) ❌<br>
 
 <br><br><br>
 <img alt="Static Badge" src="https://img.shields.io/badge/using-Python-blue?style=for-the-badge&logo=python&logoColor=white&logoSize=auto">
